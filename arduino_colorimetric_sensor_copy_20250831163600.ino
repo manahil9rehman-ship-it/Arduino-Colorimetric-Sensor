@@ -2,7 +2,7 @@
 #include <Adafruit_TFTLCD.h>
 #include <math.h>
 
-// ---------------- TFT setup ----------------
+// define TFT pins
 #define LCD_CS A3
 #define LCD_CD A2
 #define LCD_WR A1
@@ -10,7 +10,7 @@
 #define LCD_RESET A4
 Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 
-// ---------------- Colors ----------------
+// define colors
 #define BLACK   0x0000
 #define BLUE    0x001F
 #define GREEN   0x07E0
@@ -18,7 +18,7 @@ Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
-// ---------------- Graph + Sensor ----------------
+// set up graph + sensor
 int graphX0 = 40, graphY0 = 160, graphW = 240, graphH = 120;
 int maxPoints = 80;
 float values[80];
@@ -27,12 +27,12 @@ int sampleCount = 0;
 float I0 = 1.0;
 int sensorPin = A5;
 
-// ---------------- Timing ----------------
+// set measuring time
 unsigned long lastMeasureTime = 0;
 unsigned long measureInterval = 2000; // 2 seconds
 bool measuringSample = false;
 
-// ---------------- Setup ----------------
+// setup
 void setup() {
   Serial.begin(9600);
   tft.reset();
@@ -48,7 +48,7 @@ void setup() {
   Serial.println("Blank set. Insert sample, then type 's' in Serial Monitor to start measurements.");
 }
 
-// ---------------- Loop ----------------
+// loop
 void loop() {
   // Check for Serial trigger
   if (Serial.available() > 0) {
@@ -69,7 +69,7 @@ void loop() {
   }
 }
 
-// ---------------- Functions ----------------
+// functions
 void drawAxes() {
   tft.setTextColor(WHITE);
   tft.setTextSize(1);
@@ -107,7 +107,7 @@ void measureSample() {
   float A = -log10(I / I0);
   values[sampleCount] = A;
 
-  // Print raw and absorbance
+  // print raw + absorbance values
   Serial.print("Raw sensor: "); Serial.print(raw);
   Serial.print(" | I0: "); Serial.print(I0);
   Serial.print(" | A: "); Serial.println(A);
