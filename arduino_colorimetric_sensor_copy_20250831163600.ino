@@ -42,7 +42,7 @@ void setup() {
 
   drawAxes();
 
-  // Automatically set blank at startup
+  // blank automatically
   blankSample();
 
   Serial.println("Blank set. Insert sample, then type 's' in Serial Monitor to start measurements.");
@@ -59,7 +59,7 @@ void loop() {
     }
   }
 
-  // Automatic measurements once triggered
+  // measure once triggered 
   if (measuringSample) {
     unsigned long now = millis();
     if (now - lastMeasureTime >= measureInterval) {
